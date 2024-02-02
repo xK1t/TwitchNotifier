@@ -4,27 +4,27 @@ from aiogram.types import InputFile
 
 async def upload_and_update_file(bot):
     try:
-        vid = r'/usr/local/bin/TwitchNotifier/Gif/Default.mp4'
+        vid = r'/root/TwitchNotifier/Gif/Default.mp4'
         media_message_1 = await bot.send_animation(chat_id=6130068934, animation=InputFile(vid),
                                                    caption="Медиа загружены, а их ID сохранён ✅",
                                                    disable_notification=True)
 
-        vid_2 = r'/usr/local/bin/TwitchNotifier/Gif/Noty_type.mp4'
+        vid_2 = r'/root/TwitchNotifier/Gif/Noty_type.mp4'
         media_message_2 = await bot.send_animation(chat_id=6130068934, animation=InputFile(vid_2),
                                                    caption="Медиа загружены, а их ID сохранён ✅",
                                                    disable_notification=True)
 
-        vid_3 = r'/usr/local/bin/TwitchNotifier/Gif/Add_streamer.mp4'
+        vid_3 = r'/root/TwitchNotifier/Gif/Add_streamer.mp4'
         media_message_3 = await bot.send_animation(chat_id=6130068934, animation=InputFile(vid_3),
                                                    caption="Медиа загружены, а их ID сохранён ✅",
                                                    disable_notification=True)
 
-        vid_4 = r'/usr/local/bin/TwitchNotifier/Gif/Confirm.mp4'
+        vid_4 = r'/root/TwitchNotifier/Gif/Confirm.mp4'
         media_message_4 = await bot.send_animation(chat_id=6130068934, animation=InputFile(vid_4),
                                                    caption="Медиа загружены, а их ID сохранён ✅",
                                                    disable_notification=True)
 
-        vid_5 = r'/usr/local/bin/TwitchNotifier/Gif/Error.mp4'
+        vid_5 = r'/root/TwitchNotifier/Gif/Error.mp4'
         media_message_5 = await bot.send_animation(chat_id=6130068934, animation=InputFile(vid_5),
                                                    caption="Медиа загружены, а их ID сохранён ✅",
                                                    disable_notification=True)
