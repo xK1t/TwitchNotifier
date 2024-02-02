@@ -1,0 +1,15 @@
+[Unit]
+Description=Telegram bot 'TwitchNotifier'
+After=syslog.target
+After=network.target
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/usr/local/bin/TwitchNotifier
+ExecStart=/usr/bin/python3 /usr/local/bin/TwitchNotifier/main.py
+RestartSec=10
+Restart=always
+ 
+[Install]
+WantedBy=multi-user.target

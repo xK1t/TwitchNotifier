@@ -1,0 +1,56 @@
+Cause exception while getting updates.
+Traceback (most recent call last):
+  File "W:\NotifierHUB\venv\lib\site-packages\aiogram\bot\api.py", line 139, in make_request
+    async with session.post(url, data=req, **kwargs) as response:
+  File "W:\NotifierHUB\venv\lib\site-packages\aiohttp\client.py", line 1167, in __aenter__
+    self._resp = await self._coro
+  File "W:\NotifierHUB\venv\lib\site-packages\aiohttp\client.py", line 586, in _request
+    await resp.start(conn)
+  File "W:\NotifierHUB\venv\lib\site-packages\aiohttp\client_reqrep.py", line 905, in start
+    message, payload = await protocol.read()  # type: ignore[union-attr]
+  File "W:\NotifierHUB\venv\lib\site-packages\aiohttp\streams.py", line 616, in read
+    await self._waiter
+aiohttp.client_exceptions.ClientOSError: [WinError 64] Указанное сетевое имя более недоступно
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "W:\NotifierHUB\venv\lib\site-packages\aiogram\dispatcher\dispatcher.py", line 381, in start_polling
+    updates = await self.bot.get_updates(
+  File "W:\NotifierHUB\venv\lib\site-packages\aiogram\bot\bot.py", line 110, in get_updates
+    result = await self.request(api.Methods.GET_UPDATES, payload)
+  File "W:\NotifierHUB\venv\lib\site-packages\aiogram\bot\base.py", line 231, in request
+    return await api.make_request(await self.get_session(), self.server, self.__token, method, data, files,
+  File "W:\NotifierHUB\venv\lib\site-packages\aiogram\bot\api.py", line 142, in make_request
+    raise exceptions.NetworkError(f"aiohttp client throws an error: {e.__class__.__name__}: {e}")
+aiogram.utils.exceptions.NetworkError: Aiohttp client throws an error: ClientOSError: [WinError 64] Указанное сетевое имя более недоступно
+
+
+Task exception was never retrieved
+future: <Task finished name='Task-33' coro=<Dispatcher._process_polling_updates() done, defined at W:\TwitchNotifier\venv\lib\site-packages\aiogram\dispatcher\dispatcher.py:274> exception=BadRequest('There is no text in the message to edit')>
+Traceback (most recent call last):
+  File "W:\TwitchNotifier\venv\lib\site-packages\aiogram\dispatcher\dispatcher.py", line 282, in _process_polling_updates
+    for responses in itertools.chain.from_iterable(await self.process_updates(updates, fast)):
+  File "W:\TwitchNotifier\venv\lib\site-packages\aiogram\dispatcher\dispatcher.py", line 142, in process_updates
+    return await asyncio.gather(*tasks)
+  File "W:\TwitchNotifier\venv\lib\site-packages\aiogram\dispatcher\handler.py", line 117, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "W:\TwitchNotifier\venv\lib\site-packages\aiogram\dispatcher\dispatcher.py", line 183, in process_update
+    return await self.callback_query_handlers.notify(update.callback_query)
+  File "W:\TwitchNotifier\venv\lib\site-packages\aiogram\dispatcher\handler.py", line 117, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "W:\TwitchNotifier\keyboars.py", line 38, in add_streamer_button
+    await where_to_send_notifications(callback_query, language_code)
+  File "W:\TwitchNotifier\main.py", line 132, in where_to_send_notifications
+    temp_message = await bot.edit_message_text("...", user.from_user.id, user.message.message_id)
+  File "W:\TwitchNotifier\venv\lib\site-packages\aiogram\bot\bot.py", line 1452, in edit_message_text
+    result = await self.request(api.Methods.EDIT_MESSAGE_TEXT, payload)
+  File "W:\TwitchNotifier\venv\lib\site-packages\aiogram\bot\base.py", line 183, in request
+    return await api.make_request(self.session, self.__token, method, data, files,
+  File "W:\TwitchNotifier\venv\lib\site-packages\aiogram\bot\api.py", line 98, in make_request
+    return check_result(method, response.content_type, response.status, await response.text())
+  File "W:\TwitchNotifier\venv\lib\site-packages\aiogram\bot\api.py", line 72, in check_result
+    exceptions.BadRequest.detect(description)
+  File "W:\TwitchNotifier\venv\lib\site-packages\aiogram\utils\exceptions.py", line 138, in detect
+    raise cls(description)
+aiogram.utils.exceptions.BadRequest: There is no text in the message to edit
