@@ -236,8 +236,8 @@ async def handler_username(message: types.Message, state: FSMContext):
     await state.reset_state()
 
 
-async def test_1(category):
-    await bot.send_message(chat_id=6130068934, text=category)
+def test_1(category):
+    bot.send_message(chat_id=6130068934, text=category)
 
 
 if __name__ == "__main__":
