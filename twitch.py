@@ -49,7 +49,7 @@ async def check_twitch_streamer(username):
                 return data["data"][0] if data["data"] else None
 
 
-def get_last_stream_category():
+async def get_last_stream_category():
     options = Options()
     options.headless = True
     options.add_argument("--no-sandbox")
@@ -74,8 +74,8 @@ def get_last_stream_category():
             found_categories.append(category_title)  # Добавляем название категории в список
 
     if found_categories:
-        main.test_1(found_categories)
+        await main.test_1(found_categories)
         for category in found_categories:
             print(f"- {category}")
     else:
-        main.test_1("found_categories")
+        await main.test_1("Не удалось определить категории")
