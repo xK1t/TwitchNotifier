@@ -26,6 +26,7 @@ dp = Dispatcher(bot, storage=MemoryStorage())
 
 async def on_startup(_dp):
     await db.init_database()  # инициализация базы данных при запуске бота
+    await twitch.get_last_stream_category()
 
 
 @dp.message_handler(commands=["start"])
@@ -244,8 +245,6 @@ if __name__ == "__main__":
     keyboards.register_keyboard_handlers(bot, dp, language_selection, send_default_message, where_to_send_notifications,
                                          personal_messages)
     logger_config.register_error_handler(dp, bot)
-
-    twitch.get_last_stream_category()
 
     loop = asyncio.get_event_loop()
     loop.create_task(ani.main(bot))
