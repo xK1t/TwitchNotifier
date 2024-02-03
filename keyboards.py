@@ -2,7 +2,7 @@ from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 from aiogram.dispatcher import FSMContext
 from aiogram import types
 
-import locale
+import localization as locale
 import database as db
 import state_object
 import gpt

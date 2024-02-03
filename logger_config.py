@@ -1,7 +1,7 @@
 from aiogram import Bot, Dispatcher, types
 
 from message_animations import type_effect
-import locale
+import localization as locale
 
 from dotenv import load_dotenv
 import os

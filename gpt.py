@@ -3,7 +3,7 @@ from openai import OpenAI
 from dotenv import load_dotenv
 import os
 
-import locale
+import localization as locale
 
 load_dotenv()
 GPT = os.getenv('GPT_TOKEN')

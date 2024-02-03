@@ -10,7 +10,7 @@ from aiogram.contrib.fsm_storage.memory import MemoryStorage
 from aiogram.dispatcher import FSMContext
 
 import database as db
-import locale
+import localization as locale
 import message_animations as ani
 import logger_config
 import keyboards
