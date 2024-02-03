@@ -1,10 +1,10 @@
-import requests
 from dotenv import load_dotenv
 import os
 
 import aiohttp
 
 from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
 from bs4 import BeautifulSoup
 import time
 
@@ -44,7 +44,9 @@ async def check_twitch_streamer(username):
 
 
 def get_last_stream_category():
-    browser = webdriver.Chrome()
+    options = Options()
+    options.headless = True
+    browser = webdriver.Chrome(options=options)
 
     channel_url = 'https://www.twitch.tv/tiankami'
     browser.get(channel_url)
