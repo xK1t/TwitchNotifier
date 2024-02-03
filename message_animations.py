@@ -3,42 +3,37 @@ from aiogram.types import InputFile
 
 
 async def upload_and_update_file(bot):
-    try:
-        vid = r'/root/TwitchNotifier/Gif/Default.mp4'
-        media_message_1 = await bot.send_animation(chat_id=6130068934, animation=InputFile(vid),
-                                                   caption="Медиа загружены, а их ID сохранён ✅",
-                                                   disable_notification=True)
+    vid = r'/root/TwitchNotifier/Gif/Default.mp4'
+    media_message_1 = await bot.send_animation(chat_id=6130068934, animation=InputFile(vid),
+                                               caption="Медиа загружены, а их ID сохранён ✅",
+                                               disable_notification=True)
 
-        vid_2 = r'/root/TwitchNotifier/Gif/Noty_type.mp4'
-        media_message_2 = await bot.send_animation(chat_id=6130068934, animation=InputFile(vid_2),
-                                                   caption="Медиа загружены, а их ID сохранён ✅",
-                                                   disable_notification=True)
+    vid_2 = r'/root/TwitchNotifier/Gif/Noty_type.mp4'
+    media_message_2 = await bot.send_animation(chat_id=6130068934, animation=InputFile(vid_2),
+                                               caption="Медиа загружены, а их ID сохранён ✅",
+                                               disable_notification=True)
 
-        vid_3 = r'/root/TwitchNotifier/Gif/Add_streamer.mp4'
-        media_message_3 = await bot.send_animation(chat_id=6130068934, animation=InputFile(vid_3),
-                                                   caption="Медиа загружены, а их ID сохранён ✅",
-                                                   disable_notification=True)
+    vid_3 = r'/root/TwitchNotifier/Gif/Add_streamer.mp4'
+    media_message_3 = await bot.send_animation(chat_id=6130068934, animation=InputFile(vid_3),
+                                               caption="Медиа загружены, а их ID сохранён ✅",
+                                               disable_notification=True)
 
-        vid_4 = r'/root/TwitchNotifier/Gif/Confirm.mp4'
-        media_message_4 = await bot.send_animation(chat_id=6130068934, animation=InputFile(vid_4),
-                                                   caption="Медиа загружены, а их ID сохранён ✅",
-                                                   disable_notification=True)
+    vid_4 = r'/root/TwitchNotifier/Gif/Confirm.mp4'
+    media_message_4 = await bot.send_animation(chat_id=6130068934, animation=InputFile(vid_4),
+                                               caption="Медиа загружены, а их ID сохранён ✅",
+                                               disable_notification=True)
 
-        vid_5 = r'/root/TwitchNotifier/Gif/Error.mp4'
-        media_message_5 = await bot.send_animation(chat_id=6130068934, animation=InputFile(vid_5),
-                                                   caption="Медиа загружены, а их ID сохранён ✅",
-                                                   disable_notification=True)
+    vid_5 = r'/root/TwitchNotifier/Gif/Error.mp4'
+    media_message_5 = await bot.send_animation(chat_id=6130068934, animation=InputFile(vid_5),
+                                               caption="Медиа загружены, а их ID сохранён ✅",
+                                               disable_notification=True)
 
-        with open('file_ids.txt', 'w') as file_id_file:
-            file_id_file.write(f"Default_ID: {media_message_1.animation.file_id}\n")
-            file_id_file.write(f"Noty_type_ID: {media_message_2.animation.file_id}\n")
-            file_id_file.write(f"Personal_message_ID: {media_message_3.animation.file_id}\n")
-            file_id_file.write(f"Confirm_ID: {media_message_4.animation.file_id}\n")
-            file_id_file.write(f"Error: {media_message_5.animation.file_id}\n")
-
-    except Exception as e:
-        print(f"An error occurred: {e}")
-        pass
+    with open('file_ids.txt', 'w') as file_id_file:
+        file_id_file.write(f"Default_ID: {media_message_1.animation.file_id}\n")
+        file_id_file.write(f"Noty_type_ID: {media_message_2.animation.file_id}\n")
+        file_id_file.write(f"Personal_message_ID: {media_message_3.animation.file_id}\n")
+        file_id_file.write(f"Confirm_ID: {media_message_4.animation.file_id}\n")
+        file_id_file.write(f"Error: {media_message_5.animation.file_id}\n")
 
 
 async def gif(number):

@@ -40,8 +40,6 @@ async def add_user(user_id, first_name, last_name, username, language_code):
 async def add_streamer(user_id, username):
     result = 0
 
-    await twitch.get_streamer_games(username)
-
     if await twitch.check_twitch_streamer(username):
 
         async with aiosqlite.connect(DB_PATH) as conn:
