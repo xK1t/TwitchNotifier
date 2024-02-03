@@ -46,7 +46,7 @@ async def check_twitch_streamer(username):
 def get_last_stream_category():
     options = Options()
     options.headless = True
-    browser = webdriver.Chrome(options=options)
+    browser = webdriver.Chrome(executable_path='/root/chrome/chrome-linux64/chromedriver', options=options)
 
     channel_url = 'https://www.twitch.tv/tiankami'
     browser.get(channel_url)
