@@ -99,9 +99,12 @@ async def update_language_code(user_id, new_language_code):
         await conn.commit()
 
 
-async def get_user_info(user_id):
+async def get_user_info(user):
     async with aiosqlite.connect(DB_PATH) as conn, conn.cursor() as cursor:
         query = "SELECT * FROM users WHERE user_id = ?"
-        await cursor.execute(query, (user_id,))
 
-        return await cursor.fetchone()
+        if await cursor.execute(query, (user.id,)):
+            return await cursor.fetchone()
+
+        else:
+            return user.language_code

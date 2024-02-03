@@ -12,7 +12,7 @@ def register_keyboard_handlers(bot, dp, language_selection, send_default_message
                                personal_messages):
     async def confirm_language_yes(callback_query: types.CallbackQuery):
         """Подтверждение автоматического языка"""
-        check_streamer = await db.get_user_info(callback_query.from_user.id)
+        check_streamer = await db.get_user_info(callback_query.from_user)
         lang_code = callback_query.data.split('_')[3]
 
         if check_streamer:
@@ -22,7 +22,7 @@ def register_keyboard_handlers(bot, dp, language_selection, send_default_message
 
     async def confirm_language_no(callback_query: types.CallbackQuery):
         """Выбор языка в ручную"""
-        user_info = await db.get_user_info(callback_query.from_user.id)
+        user_info = await db.get_user_info(callback_query.from_user)
         if user_info:
             language_code = user_info[4]
             await language_selection(callback_query, language_code)
@@ -32,7 +32,7 @@ def register_keyboard_handlers(bot, dp, language_selection, send_default_message
         lang_code = callback_query.data.split('_')[2]
         await db.update_language_code(callback_query.from_user.id, lang_code)
 
-        user_info = await db.get_user_info(callback_query.from_user.id)
+        user_info = await db.get_user_info(callback_query.from_user)
 
         await bot.answer_callback_query(callback_query.id, text=locale.LANGUAGE_UPDATE.get(user_info[4]))
 
@@ -43,7 +43,7 @@ def register_keyboard_handlers(bot, dp, language_selection, send_default_message
 
     async def add_streamer_button(callback_query: types.CallbackQuery, state: FSMContext):
         """Переход к добавлению стримера"""
-        user_info = await db.get_user_info(callback_query.from_user.id)
+        user_info = await db.get_user_info(callback_query.from_user)
         if user_info:
             language_code = user_info[4]
             await where_to_send_notifications(callback_query, language_code)
@@ -52,7 +52,7 @@ def register_keyboard_handlers(bot, dp, language_selection, send_default_message
 
     async def back_to_default(callback_query: types.CallbackQuery):
         """Возврат к стандартному сообщению"""
-        user_info = await db.get_user_info(callback_query.from_user.id)
+        user_info = await db.get_user_info(callback_query.from_user)
 
         if user_info:
             await send_default_message(callback_query, user_info[4], user_info[5])
@@ -61,7 +61,7 @@ def register_keyboard_handlers(bot, dp, language_selection, send_default_message
 
     async def stop_gpt(callback_query: types.CallbackQuery, state: FSMContext):
         """Возврат к стандартному сообщению после чата с GPT"""
-        user_info = await db.get_user_info(callback_query.from_user.id)
+        user_info = await db.get_user_info(callback_query.from_user)
 
         if user_info:
             await send_default_message(callback_query, user_info[4], user_info[5])
@@ -74,7 +74,7 @@ def register_keyboard_handlers(bot, dp, language_selection, send_default_message
 
     async def personal_messages_button(callback_query: types.CallbackQuery, state: FSMContext):
         """Подписка на уведомления в личные сообщения"""
-        user_info = await db.get_user_info(callback_query.from_user.id)
+        user_info = await db.get_user_info(callback_query.from_user)
 
         await personal_messages(callback_query, user_info[4], state)
 

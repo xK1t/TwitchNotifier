@@ -33,7 +33,7 @@ async def start(message: types.Message):
 
     user = message.from_user
 
-    existing_user = await db.get_user_info(user.id)
+    existing_user = await db.get_user_info(user)
 
     if existing_user:  # если юзер есть в базе данных
 
@@ -58,7 +58,7 @@ async def language(message: types.Message):
     """Обрабатывает команду /language"""
 
     user = message.from_user
-    user_info = await get_or_create_user(user.id, user.first_name, user.last_name, user.username, user.language_code)
+    user_info = await get_or_create_user(user, user.first_name, user.last_name, user.username, user.language_code)
 
     if user_info:
         language_code = user_info[4]
@@ -77,14 +77,13 @@ async def chat_cmd(message: types.Message, state: FSMContext):
 @dp.message_handler(state=state_object.GPT_CHAT, content_types=['text'])
 async def gpt_chat(message: types.Message):
     """Обработчик сообщений для GPT"""
-
+    user = message.from_user
     user_text = message.text
-    user_id = message.from_user.id
 
-    user_info = await db.get_user_info(message.from_user.id)
+    user_info = await db.get_user_info(user)
 
     bot_typing = await bot.send_chat_action(chat_id=message.from_user.id, action='typing')
-    gpt_text = gpt.get_gpt_response(user_text, user_id, user_info[4])
+    gpt_text = gpt.get_gpt_response(user_text, user.id, user_info[4])
 
     keyboard = keyboards.stop_keyboard(user_info[4])
 
@@ -103,14 +102,14 @@ async def confirm_language(message, language_code_from_tg):
     await ani.type_effect(bot, message.from_user.id, temp_message.message_id, text, keyboard=keyboard)
 
 
-async def get_or_create_user(user_id, first_name=None, last_name=None, username=None, language_code=None):
+async def get_or_create_user(user, first_name=None, last_name=None, username=None, language_code=None):
     """Получает информацию о пользователе из БД или создает новую запись, если не найдено."""
 
-    user_info = await db.get_user_info(user_id)
+    user_info = await db.get_user_info(user)
 
     if not user_info:
-        await db.add_user(user_id, first_name, last_name, username, language_code)
-        user_info = await db.get_user_info(user_id)
+        await db.add_user(user.id, first_name, last_name, username, language_code)
+        user_info = await db.get_user_info(user.id)
 
     return user_info
 
@@ -201,7 +200,7 @@ async def handler_username(message: types.Message, state: FSMContext):
     user_id = user.id
     input_text = message.text.lower()
 
-    user_info = await db.get_user_info(message.from_user.id)
+    user_info = await db.get_user_info(user)
 
     match = re.match(r"(?:https?://)?(?:www\.)?twitch\.tv/([a-zA-Z0-9_]+)", input_text)
     username = match.group(1) if match else input_text
