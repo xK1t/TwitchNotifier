@@ -1,4 +1,13 @@
+# Файлы среды Python
+__pycache__/
+*.py[cod]
+*.pyc
+
+# Файлы, содержащие секреты
 .env
-logs
-Notifier.db
-__pycache__
+
+# Базы данных SQLite
+*.db
+
+# Директории логов
+logs/
