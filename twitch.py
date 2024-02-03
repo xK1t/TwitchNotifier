@@ -49,12 +49,7 @@ async def check_twitch_streamer(username):
 
 def get_last_stream_category():
     options = Options()
-    options.add_argument("--headless")  # Запуск Chrome в фоновом режиме
-    options.add_argument("--no-sandbox")  # Отключение режима песочницы
-    options.add_argument("--disable-dev-shm-usage")  # Отключение использования разделяемой памяти
-    options.add_argument("--disable-gpu")  # Отключение аппаратного ускорения
-    options.add_argument("--remote-debugging-port=9222")  # Отладочный порт (необязательно)
-
+    options.headless = True
     browser = webdriver.Chrome(executable_path='/root/chrome/chrome-linux64/chromedriver', options=options)
 
     channel_url = 'https://www.twitch.tv/tiankami'
