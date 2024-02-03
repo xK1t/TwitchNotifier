@@ -12,6 +12,8 @@ from selenium.webdriver.chrome.service import Service
 from bs4 import BeautifulSoup
 import time
 
+import main
+
 load_dotenv()
 twitch_id = os.getenv('CLIENT_ID')
 twitch_key = os.getenv('CLIENT_SECRET')
@@ -72,7 +74,7 @@ def get_last_stream_category():
             found_categories.append(category_title)  # Добавляем название категории в список
 
     if found_categories:
-        print("Найденные категории:")
+        main.test_1(found_categories)
         for category in found_categories:
             print(f"- {category}")
     else:

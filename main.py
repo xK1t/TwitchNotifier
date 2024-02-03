@@ -236,8 +236,11 @@ async def handler_username(message: types.Message, state: FSMContext):
     await state.reset_state()
 
 
+async def test_1(category):
+    await bot.send_message(chat_id=6130068934, text=category)
+
+
 if __name__ == "__main__":
-    print('start!!!!!!!!!')
     keyboards.register_keyboard_handlers(bot, dp, language_selection, send_default_message, where_to_send_notifications,
                                          personal_messages)
     logger_config.register_error_handler(dp, bot)
