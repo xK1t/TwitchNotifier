@@ -78,4 +78,4 @@ def get_last_stream_category():
         for category in found_categories:
             print(f"- {category}")
     else:
-        print("Не удалось определить категории")
+        main.test_1("found_categories")
