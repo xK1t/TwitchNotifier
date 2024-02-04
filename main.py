@@ -26,7 +26,6 @@ dp = Dispatcher(bot, storage=MemoryStorage())
 
 async def on_startup(_dp):
     await db.init_database()  # инициализация базы данных при запуске бота
-    await twitch.get_last_stream_category()
 
 
 @dp.message_handler(commands=["start"])
@@ -212,11 +211,7 @@ async def handler_username(message: types.Message, state: FSMContext):
     keyboard = keyboards.add_streamer_final(user_info[4])
 
     if add_streamer_result == 1:
-        language_text = locale.STREAMER_TRACKING_CONFIRMATION[user_info[4]].format(username=username)
-
-        temp_message = await bot.send_animation(user.id, gif_id, caption='...')
-        await ani.type_effect(bot, user.id, temp_message.message_id, language_text,
-                              'handler_username', keyboard)
+        await send_categories(user, username)
 
     elif add_streamer_result == 2:
         language_text = locale.ALREADY_TRACKING_MESSAGE[user_info[4]].format(username=username)
@@ -237,8 +232,19 @@ async def handler_username(message: types.Message, state: FSMContext):
     await state.reset_state()
 
 
-async def test_1(category):
-    await bot.send_message(chat_id=6130068934, text=category)
+async def send_categories(user, username):
+    language_code = await db.get_user_info(user)
+    categories_list = await twitch.get_categories(username)
+
+    if categories_list:
+        keyboard = keyboards.add_categories(categories_list)
+        gif_id = await ani.gif(3)
+        language_text = "Вот такие категории я нашёл"
+
+        temp_message = await bot.send_animation(user.id, gif_id, caption='...')
+
+        await ani.type_effect(bot, user.id, temp_message.message_id, language_text,
+                              'handler_username', keyboard)
 
 
 if __name__ == "__main__":

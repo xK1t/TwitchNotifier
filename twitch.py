@@ -3,16 +3,11 @@ import os
 
 import aiohttp
 
+
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
-from bs4 import BeautifulSoup
-from selenium import webdriver
-from selenium.webdriver.chrome.options import Options
-from selenium.webdriver.chrome.service import Service
 from bs4 import BeautifulSoup
 import time
-
-import main
 
 load_dotenv()
 twitch_id = os.getenv('CLIENT_ID')
@@ -49,7 +44,7 @@ async def check_twitch_streamer(username):
                 return data["data"][0] if data["data"] else None
 
 
-async def get_last_stream_category():
+async def get_categories(username):
     options = Options()
     options.headless = True
     options.add_argument("--no-sandbox")
@@ -57,7 +52,7 @@ async def get_last_stream_category():
     options.add_argument("--disable-gpu")
     browser = webdriver.Chrome(executable_path='/root/chrome/chrome-linux64/chromedriver', options=options)
 
-    channel_url = 'https://www.twitch.tv/tiankami'
+    channel_url = f'https://www.twitch.tv/{username}'
     browser.get(channel_url)
     time.sleep(5)  # Подождите, чтобы страница полностью загрузилась
 
@@ -74,8 +69,7 @@ async def get_last_stream_category():
             found_categories.append(category_title)  # Добавляем название категории в список
 
     if found_categories:
-        await main.test_1(found_categories)
-        for category in found_categories:
-            print(f"- {category}")
+        return found_categories
+
     else:
-        await main.test_1("Не удалось определить категории")
+        return None
