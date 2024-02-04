@@ -12,7 +12,6 @@ from aiogram.dispatcher import FSMContext
 import database as db
 import localization as locale
 import message_animations as ani
-import logger_config
 import keyboards
 import gpt
 import state_object
@@ -237,7 +236,6 @@ async def handler_username(message: types.Message, state: FSMContext):
 if __name__ == "__main__":
     keyboards.register_keyboard_handlers(bot, dp, language_selection, send_default_message, where_to_send_notifications,
                                          personal_messages)
-    logger_config.register_error_handler(dp, bot)
 
     loop = asyncio.get_event_loop()
     loop.create_task(ani.main(bot))
