@@ -3,12 +3,6 @@ import os
 
 import aiohttp
 
-
-from selenium import webdriver
-from selenium.webdriver.chrome.options import Options
-from bs4 import BeautifulSoup
-import time
-
 load_dotenv()
 twitch_id = os.getenv('CLIENT_ID')
 twitch_key = os.getenv('CLIENT_SECRET')
@@ -42,34 +36,3 @@ async def check_twitch_streamer(username):
             if response.status == 200:
                 data = await response.json()
                 return data["data"][0] if data["data"] else None
-
-
-async def get_categories(username):
-    options = Options()
-    options.headless = True
-    options.add_argument("--no-sandbox")
-    options.add_argument("--disable-dev-shm-usage")
-    options.add_argument("--disable-gpu")
-    browser = webdriver.Chrome(executable_path='/root/chrome/chrome-linux64/chromedriver', options=options)
-
-    channel_url = f'https://www.twitch.tv/{username}'
-    browser.get(channel_url)
-    time.sleep(5)  # Подождите, чтобы страница полностью загрузилась
-
-    soup = BeautifulSoup(browser.page_source, 'html.parser')
-    browser.quit()  # Закрыть браузер после завершения
-
-    # Поиск карточек игр
-    game_cards = soup.find_all('div', class_='game-card')
-    found_categories = []  # Список для хранения найденных категорий
-    for card in game_cards:
-        title_element = card.find('h2', class_='CoreText-sc-1txzju1-0')
-        if title_element:
-            category_title = title_element.get_text(strip=True)
-            found_categories.append(category_title)  # Добавляем название категории в список
-
-    if found_categories:
-        return found_categories
-
-    else:
-        return None

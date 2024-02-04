@@ -200,15 +200,3 @@ def add_streamer_final(language_code):
                  back)
 
     return keyboard
-
-
-def add_categories(categories):
-    keyboard = InlineKeyboardMarkup(row_width=1)
-
-    for category in categories:
-        button = InlineKeyboardButton(text=f" {category}",
-                                      callback_data=f'add_categories:{category}')
-
-        keyboard.add(button)
-
-    return keyboard

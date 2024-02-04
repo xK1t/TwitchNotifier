@@ -16,7 +16,6 @@ import logger_config
 import keyboards
 import gpt
 import state_object
-import twitch
 
 load_dotenv()
 
@@ -211,7 +210,11 @@ async def handler_username(message: types.Message, state: FSMContext):
     keyboard = keyboards.add_streamer_final(user_info[4])
 
     if add_streamer_result == 1:
-        await send_categories(user, username)
+        language_text = locale.STREAMER_TRACKING_CONFIRMATION[user_info[4]].format(username=username)
+
+        temp_message = await bot.send_animation(user.id, gif_id, caption='...')
+        await ani.type_effect(bot, user.id, temp_message.message_id, language_text,
+                              'handler_username', keyboard)
 
     elif add_streamer_result == 2:
         language_text = locale.ALREADY_TRACKING_MESSAGE[user_info[4]].format(username=username)
@@ -230,22 +233,6 @@ async def handler_username(message: types.Message, state: FSMContext):
                               'handler_username', keyboard)
 
     await state.reset_state()
-
-
-async def send_categories(user, username):
-    language_code = await db.get_user_info(user)
-    categories_list = await twitch.get_categories(username)
-
-    if categories_list:
-        keyboard = keyboards.add_categories(categories_list)
-        gif_id = await ani.gif(3)
-        language_text = "Вот такие категории я нашёл"
-
-        temp_message = await bot.send_animation(user.id, gif_id, caption='...')
-
-        await ani.type_effect(bot, user.id, temp_message.message_id, language_text,
-                              'handler_username', keyboard)
-
 
 if __name__ == "__main__":
     keyboards.register_keyboard_handlers(bot, dp, language_selection, send_default_message, where_to_send_notifications,
